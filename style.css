@@ -632,6 +632,10 @@ body {
 }
 
   @media (max-width: 768px) {
+    /* 🍔 Forces the hamburger bars to display cleanly on mobile screens */
+  .menu-toggle {
+    display: flex !important;
+  }
   /* Drops down and stacks links neatly on mobile screens */
   .nav-menu {
     display: flex;
