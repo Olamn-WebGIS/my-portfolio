@@ -613,30 +613,53 @@ body {
   border-radius: 10px;
   transition: all 0.3s ease;
 }
+.page-section {
+  display: none;
+}
 
-/* 📱 Mobile Responsive Styles (Screens under 768px wide) */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
-  }
+/* Only show the section that has the active class */
+.page-section.active {
+  display: block !important; 
+}
+/* --- Desktop Default Navigation Style --- */
+.nav-menu {
+  display: flex;
+  flex-direction: row;        /* Forces links side-by-side on desktop */
+  position: static;           /* Keeps it sitting naturally in the header */
+  height: auto;
+  width: auto;
+  background-color: transparent; /* No dark background on desktop */
+}
 
+  @media (max-width: 768px) {
   /* Drops down and stacks links neatly on mobile screens */
   .nav-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 40px;
-    gap: 30px;
+    padding-top: 60px; /* Increased padding to push links down slightly */
+    gap: 35px;
     
-    position: absolute;
-    top: 70px; /* Adjust this to match the height of your .navbar */
+    position: fixed; /* Changed from absolute to fixed so it locks to the screen */
+    top: 0; /* Starts from the absolute top of the viewport */
     left: -100%; 
     width: 100%;
-    height: calc(100vh - 70px); 
-    background-color: #1a1a1a; /* Match this to your header navbar color */
+    height: 100vh; /* Fills the entire screen layer */
+    
+    background-color: #1a1a1a !important; /* Force a solid, dark slate background color */
     transition: left 0.4s ease;
-    z-index: 999;
+    z-index: 99999 !important; /* Forces the menu to sit ON TOP of all other images or banners */
+  }
+
+  /* Ensures your text links are explicitly white and visible */
+  .nav-menu .nav-link {
+    color: #FFFFFF !important;
+    font-size: 24px !important;
+    text-decoration: none !important;
+    display: block !important;
+    width: 100%;
+    text-align: center;
   }
 
   /* Pulls menu into view when clicked */
@@ -654,4 +677,4 @@ body {
   .menu-toggle.active .bar:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
   }
-}
+  }

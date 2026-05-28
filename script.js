@@ -4,13 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll(".page-section");
     const messageInput = document.getElementById("message");
 
-    // --- 1. Robust Page Routing System ---
-    function routeTo(targetId) {
-        // Hide all active visibility settings 
-        sections.forEach(sec => sec.classList.remove("active"));
-        
-        const destination = document.getElementById(targetId);
-        if (destination) {
+   // --- 1. Robust Page Routing System ---
+function routeTo(targetId) {
+  // Clean the ID string: if it starts with '#', remove it!
+  const cleanId = targetId.startsWith('#') ? targetId.substring(1) : targetId;
+
+  // Hide all active visibility settings
+  sections.forEach(sec => sec.classList.remove("active"));
+
+  // Grab the destination using our cleaned-up ID
+  const destination = document.getElementById(cleanId);
+  if (destination) {
             destination.classList.add("active");
             
             // Re-fire our custom scroll reveal trigger manually for instantly clean styling
@@ -18,13 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Keep correct top link selection highlighted
-        links.forEach(ln => {
-            if (ln.getAttribute("data-target") === targetId) {
-                ln.classList.add("active");
-            } else {
-                ln.classList.remove("active");
-            }
-        });
+    links.forEach(ln => {
+      const linkTarget = ln.getAttribute("data-target") || ln.getAttribute("href");
+      
+      if (linkTarget === targetId || linkTarget === cleanId) {
+        ln.classList.add("active");
+      } else {
+        ln.classList.remove("active");
+      }
+    });
 
         window.scrollTo(0, 0);
     }
@@ -130,7 +136,7 @@ menuToggle.addEventListener('click', () => {
 });
 
 // Closes the drawer overlay dynamically when clicking any menu link
-document.querySelectorAll('.nav-link').forEach(link => {
+document.querySelectorAll('.nav-menu .nav-link').forEach(link => {
   link.addEventListener('click', () => {
     navMenu.classList.remove('active');
     menuToggle.classList.remove('active');
